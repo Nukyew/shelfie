@@ -1,33 +1,68 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+header {
+  background-color: #AB2A19;
+  width: 100vw;
+  height: 115px;
+  margin-top: -17px;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-family: Open Sans;
+  padding-left: 75px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+header img {
+  width: 50px;
+  height: 50px;
+  transform: translate(-15%, 0%);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header h1 {
+  transform: translate(20%, 0%);
+}
+
+main {
+  /* background-color: green; */
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.dashboard {
+  /* background-color: orange; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.product {
+  background-color: #AB2A19;
+  width: 450px;
+  height: 250px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.product-desc {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+}
+
+.product img {
+  width: 300px;
+  height: 200px;
+}
+
+.form {
+  background: green;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding: 0 10px;
+  height: 600px;
 }

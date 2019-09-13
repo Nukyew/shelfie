@@ -7,6 +7,11 @@ const {SERVER_PORT, CONNECTION_STRING} = process.env
 
 app.use(express.json())
 
+app.get('/api/inventory', ctrl.getInventory)
+app.post('/api/product', ctrl.createProduct)
+app.delete('/api/inventory/:id', ctrl.deleteProduct)
+app.put('/api/product/:id', ctrl.updateProduct)
+
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
     console.log('db connected!')
