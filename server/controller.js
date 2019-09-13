@@ -28,5 +28,12 @@ module.exports = {
         db.update_product([id, name, price, imgurl]).then(results => {
             res.status(200).send('updated successfully')
         })
+    },
+    getOneProduct: (req, res, next) => {
+        const db = req.app.get('db')
+        const {id} = req.params
+        db.get_one_product([id]).then(results => {
+            res.status(200).send(results)
+        })
     }
 }

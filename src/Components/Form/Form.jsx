@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 class Form extends React.Component{
     state = {
@@ -10,18 +11,36 @@ class Form extends React.Component{
         toggleEdit: false
     }
 
-    componentDidUpdate = (prevProps) => {
-        if (prevProps.currentProduct[0] !== this.props.currentProduct[0]){
-            // console.log(prevProps)
-            // console.log(this.props.currentProduct)
+    componentDidMount = () => {
+        this.getOneProduct()
+    }
+
+    getOneProduct = () => {
+        axios.get(`/api/inventory/${this.props.match.params.id}`).then(res => {
+            // console.log(res.data)
             this.setState({
-                name: this.props.currentProduct[0].name,
-                price: this.props.currentProduct[0].price,
-                imgurl: this.props.currentProduct[0].img,
-                currentProdId: this.props.currentProduct[0].id,
+                name: res.data[0].name,
+                price: res.data[0].price,
+                imgurl: res.data[0].img,
+                currentProdId: res.data[0].id,
                 toggleEdit: true
             })
-        }
+        })
+    }
+
+    componentDidUpdate = () => {
+        // if (prevProps.currentProduct[0] !== this.props.currentProduct[0]){
+        //     // console.log(prevProps)
+        //     // console.log(this.props.currentProduct)
+        //     this.setState({
+        //         name: this.props.currentProduct[0].name,
+        //         price: this.props.currentProduct[0].price,
+        //         imgurl: this.props.currentProduct[0].img,
+        //         currentProdId: this.props.currentProduct[0].id,
+        //         toggleEdit: true
+        //     })
+        // }
+        
     }
 
     handleName = e => {
@@ -58,11 +77,12 @@ class Form extends React.Component{
         })
         this.resetState()
         this.props.getInventory()
+        this.props.history.goBack()
     }
 
     updateProduct = () => {
         axios.put(`/api/product/${this.state.currentProdId}`, {name: this.state.name, price: this.state.price, imgurl: this.state.imgurl}).then(res => {
-            this.props.getInventory()
+            this.props.history.goBack()
         })
     }
 

@@ -5,22 +5,35 @@ import axios from 'axios'
 
 class Dashboard extends React.Component {
     state = {
+        inventory: []
     }
+
+    componentDidMount = () => {
+        this.getInventory()
+    }
+
+    getInventory() {
+        axios.get('/api/inventory').then(res => {
+          this.setState({
+            inventory: res.data
+          })
+        })
+      }
 
     deleteProduct = id => {
         axios.delete(`/api/inventory/${id}`).then(res => {
-            this.props.getInventory()
+            this.getInventory()
         })
     }
 
     render(){
-        let list = this.props.inventory.map((el, i) => {
+        let list = this.state.inventory.map((el, i) => {
             return(
                 <Product
                     deleteProduct={this.deleteProduct}
                     key={i + el.name}
                     product={el}
-                    selectedProduct={this.props.selectedProduct}
+                    // selectedProduct={this.props.selectedProduct}
                 />
             )
         })
