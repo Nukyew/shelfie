@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 class Form extends React.Component{
     state = {
@@ -12,7 +12,9 @@ class Form extends React.Component{
     }
 
     componentDidMount = () => {
-        this.getOneProduct()
+        if (this.props.match.url.includes('edit')){
+            this.getOneProduct()
+        }
     }
 
     getOneProduct = () => {
@@ -28,7 +30,8 @@ class Form extends React.Component{
         })
     }
 
-    componentDidUpdate = () => {
+    componentDidUpdate = (test, prevState) => {
+        // console.log(prevState.name)
         // if (prevProps.currentProduct[0] !== this.props.currentProduct[0]){
         //     // console.log(prevProps)
         //     // console.log(this.props.currentProduct)
@@ -40,7 +43,18 @@ class Form extends React.Component{
         //         toggleEdit: true
         //     })
         // }
-        
+        // if (this.props.match.url.includes('add') === prevState){
+        //     this.resetState()
+        // }
+        // if (prevState.name && test.match.path.includes('edit') && this.toggleEdit2 === false){
+            //     this.resetState()
+            //     this.setState({
+                //         toggleEdit2: true
+                //     })
+                // }
+        if (prevState === this.state){
+            this.resetState()
+        }
     }
 
     handleName = e => {
@@ -76,14 +90,16 @@ class Form extends React.Component{
             console.log("Frontend: Added to DB!")
         })
         this.resetState()
-        this.props.getInventory()
-        this.props.history.goBack()
     }
 
     updateProduct = () => {
         axios.put(`/api/product/${this.state.currentProdId}`, {name: this.state.name, price: this.state.price, imgurl: this.state.imgurl}).then(res => {
             this.props.history.goBack()
         })
+    }
+
+    cancelBtn = () => {
+        this.resetState()
     }
 
     saveChanges = () => {
@@ -98,11 +114,11 @@ class Form extends React.Component{
                 Image URL: <input type="url" onChange={e => this.handleImg(e)} value={this.state.imgurl} type="text"/>
                 Product Name: <input onChange={e => this.handleName(e)} value={this.state.name} type="text"/>
                 Price: <input onChange={e => this.handlePrice(e)} value={this.state.price} type="number"/>
-                <button onClick={() => this.resetState()}>Cancel</button>
+                <Link to='/'><button onClick={() => this.cancelBtn()}>Cancel</button></Link>
                 {
                 this.state.toggleEdit
                 ? <button onClick={() => this.saveChanges()}>Save Changes</button>
-                : <button onClick={() => this.addToInventory()}>Add To Inventory</button>
+                : <Link to="/"><button onClick={() => this.addToInventory()}>Add To Inventory</button></Link>
                 }
             </div>
         )
