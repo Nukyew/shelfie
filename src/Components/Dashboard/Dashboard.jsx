@@ -4,9 +4,15 @@ import axios from 'axios'
 
 
 class Dashboard extends React.Component {
-    state = {
-        inventory: []
+    constructor(){
+        super()
+
+        this.state = {
+            inventory: []
+        }
+        this.deleteProduct = this.deleteProduct.bind(this)
     }
+        
 
     componentDidMount = () => {
         this.getInventory()
@@ -20,7 +26,7 @@ class Dashboard extends React.Component {
         })
       }
 
-    deleteProduct = id => {
+    deleteProduct(id) {
         axios.delete(`/api/inventory/${id}`).then(res => {
             this.getInventory()
         })
@@ -39,7 +45,6 @@ class Dashboard extends React.Component {
         })
         return(
             <div className="dashboard">
-                <h1>Dashboard</h1>
                 {list}
             </div>
         )

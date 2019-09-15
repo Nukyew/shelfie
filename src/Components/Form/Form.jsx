@@ -27,7 +27,7 @@ class Form extends React.Component{
                 currentProdId: res.data[0].id,
                 toggleEdit: true
             })
-        })
+        }).catch(err => console.log(err))
     }
 
     componentDidUpdate = (test, prevState) => {
@@ -52,6 +52,7 @@ class Form extends React.Component{
                 //         toggleEdit2: true
                 //     })
                 // }
+        // console.log(test)
         if (prevState === this.state){
             this.resetState()
         }
@@ -86,16 +87,14 @@ class Form extends React.Component{
     }
 
     addToInventory = () => {
-        axios.post('/api/product', this.state).then(result => {
-            console.log("Frontend: Added to DB!")
-        })
+        axios.post('/api/product', this.state)
         this.resetState()
     }
 
     updateProduct = () => {
         axios.put(`/api/product/${this.state.currentProdId}`, {name: this.state.name, price: this.state.price, imgurl: this.state.imgurl}).then(res => {
             this.props.history.goBack()
-        })
+        }).catch(err => console.log(`Could not find product to update. Reason: ${err}`))
     }
 
     cancelBtn = () => {
@@ -107,19 +106,29 @@ class Form extends React.Component{
     }
 
     render(){
+        let formFilledStyle = {
+            backgroundImage: `url(${this.state.imgurl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            width: "320px",
+            height: "200px",
+            alignSelf: 'center'
+        }
         return(
             <div className="form">
-                <h1>Form</h1>
-                {!this.state.imgurl ? <img src="https://via.placeholder.com/320x200"/> : <img width="320px" height="200px" src={this.state.imgurl}/>}
-                Image URL: <input type="url" onChange={e => this.handleImg(e)} value={this.state.imgurl} type="text"/>
+                {!this.state.imgurl ? <img width="320px" height="200px" src="https://via.placeholder.com/320x200" alt="placeholder box"/> : <div className="form-filled" style={formFilledStyle} /* src={this.state.imgurl} *//>}
+                Image URL: <input onChange={e => this.handleImg(e)} value={this.state.imgurl} type="text"/>
                 Product Name: <input onChange={e => this.handleName(e)} value={this.state.name} type="text"/>
                 Price: <input onChange={e => this.handlePrice(e)} value={this.state.price} type="number"/>
-                <Link to='/'><button onClick={() => this.cancelBtn()}>Cancel</button></Link>
-                {
-                this.state.toggleEdit
-                ? <button onClick={() => this.saveChanges()}>Save Changes</button>
-                : <Link to="/"><button onClick={() => this.addToInventory()}>Add To Inventory</button></Link>
-                }
+                <div className="form-btns">
+                    <Link to='/'><button onClick={() => this.cancelBtn()}>Cancel</button></Link>
+                    {
+                    this.state.toggleEdit
+                    ? <button onClick={() => this.saveChanges()}>Save Changes</button>
+                    : <Link to="/"><button onClick={() => this.addToInventory()}>Add To Inventory</button></Link>
+                    }
+                </div>
             </div>
         )
     }

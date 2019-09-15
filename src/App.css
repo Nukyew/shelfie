@@ -15,16 +15,19 @@ header {
 header img {
   width: 50px;
   height: 50px;
-  transform: translate(-15%, 0%);
+  /* transform: translate(-15%, 0%); */
 }
 
 header h1 {
-  transform: translate(20%, 0%);
+  margin-left: 15px;
+}
+
+.nav-btns {
+  margin-left: 15px;
 }
 
 main {
-  /* background-color: green; */
-  margin: 0 20px;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,34 +38,110 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 25px;
 }
 
 .product {
-  background-color: #AB2A19;
-  width: 450px;
+  background-color: #d34735;
+  border-radius: 15px;
+  width: 600px;
   height: 250px;
   margin-bottom: 40px;
   display: flex;
   align-items: center;
   padding-left: 15px;
 }
-
 .product-desc {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  width: 250px;
   height: 200px;
+  margin-left: 20px;
 }
 
-.product img {
-  width: 300px;
-  height: 200px;
+.product-desc-btns{
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-desc button {
+	background-color:#3AD886;
+	border-radius:12px;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:15px;
+  padding:11px 15px;
+  border: 0px;
+}
+.product-desc button:hover {
+	background-color:rgb(47, 172, 107);
+}
+.product-desc button:active {
+	position:relative;
+	top:1px;
 }
 
 .form {
-  background: green;
+  margin-top: 25px;
+  background: #3AD886;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 400px;
-  padding: 0 10px;
-  height: 600px;
+  padding: 20px 20px;
+  font-size: 1.1rem;
+  line-height: 40px;
+}
+
+.form img {
+  align-self: center;
+}
+
+.form-btns {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-btns button {
+	background-color:#ed6b5a;
+	border-radius:12px;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:15px;
+  padding:11px 15px;
+  border: 0px;
+}
+.fom-btns button:hover {
+	background-color:#c4574b;
+}
+.form-btns button:active {
+	position:relative;
+	top:1px;
+}
+
+
+.nav-btns button {
+	background-color:#ed6b5a;
+	border-radius:12px;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:15px;
+  padding:11px 15px;
+  border: 0px;
+  margin-left: 10px;
+}
+.nav-btns button:hover {
+	background-color:#c4574b;
+}
+.nav-btns button:active {
+	position:relative;
+	top:1px;
+}
+
+.form-filled {
+  width: 320px;
+  height: 200px;
 }
